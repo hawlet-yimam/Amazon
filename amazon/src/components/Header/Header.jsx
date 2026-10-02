@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaSearch, FaCartArrowDown, FaMapMarkerAlt } from "react-icons/fa";
 import './Header.css';
+import { FaChevronDown } from "react-icons/fa";
 
 function Header() {
   return (
@@ -26,6 +27,7 @@ function Header() {
       <div className='header__search'>
         <select className='header__searchSelect'>
           <option value="ALL">All</option>
+            <FaChevronDown />
         </select>
         <input type="text" placeholder='Search products' className='header__searchInput' />
         <button className='header__searchIconBtn'>
@@ -42,7 +44,10 @@ function Header() {
             alt='US Flag' 
             className='header__flag'
           />
-          <span>EN</span>
+          <span className='header__optionLineT'>
+            <option value="EN">EN</option>
+             <FaChevronDown />
+          </span>
         </div>
 
         {/* Sign In */}

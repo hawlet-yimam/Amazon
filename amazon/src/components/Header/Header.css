@@ -89,6 +89,11 @@
     align-items: center;
     gap: 15px;
 }
+.header__optionLineT{
+    display: flex;
+  flex-direction: row; 
+  align-items: center; 
+}
 
 .header__option {
     display: flex;
@@ -96,13 +101,16 @@
     color: white;
     text-decoration: none;
     cursor: pointer;
+   
 }
+
 
 .header__language {
     flex-direction: row;
     align-items: center;
     gap: 4px;
     font-weight: bold;
+    display: flex;
 }
 
 .header__flag {
