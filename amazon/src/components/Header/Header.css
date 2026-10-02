@@ -1,0 +1,182 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    background-color: #131921;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    color: white;
+    padding: 0 10px;
+    gap: 15px;
+}
+
+/* Logo */
+.header__logo {
+    display: flex;
+    align-items: center;
+}
+
+.header__logo img {
+    width: 90px;
+    object-fit: contain;
+    margin-top: 10px;
+}
+
+/* Delivery */
+.header__delivery {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.header__deliveryText {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Search Bar */
+.header__search {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.header__searchSelect {
+    background-color: #f3f3f3;
+    height: 38px;
+    border: none;
+    padding: 0 5px;
+    border-right: 1px solid #cdcdcd;
+    cursor: pointer;
+}
+
+.header__searchInput {
+    height: 38px;
+    padding: 10px;
+    border: none;
+    width: 100%;
+    outline: none;
+}
+
+.header__searchIconBtn {
+    height: 38px;
+    width: 45px;
+    background-color: #febd69;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.header__searchIconBtn:hover {
+    background-color: #f3a847;
+}
+
+/* Right Nav Section */
+.header__nav {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header__option {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.header__language {
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    font-weight: bold;
+}
+
+.header__flag {
+    width: 20px;
+}
+
+.header__optionLineOne {
+    font-size: 11px;
+    color: #ccc;
+}
+
+.header__optionLineTwo {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* Cart */
+.header__optionCart {
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    position: relative;
+}
+
+.header__cartCount {
+    font-weight: bold;
+    color: #f08804;
+    margin-left: 3px;
+}
+
+
+@media (max-width: 768px) {
+    .header__delivery {
+        display: none; 
+    }
+
+    .header__language {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .header {
+        height: auto;
+        flex-wrap: wrap;
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .header__search {
+        order: 3; 
+        width: 100%;
+        flex: 1 0 100%;
+        margin-top: 5px;
+    }
+
+    .header__searchSelect {
+        display: none; 
+    }
+
+    .header__logo img {
+        width: 75px; 
+    }
+
+    .header__nav {
+        gap: 10px;
+    }
+
+    .header__optionLineOne {
+        display: none; 
+    }
+
+    .header__optionLineTwo {
+        font-size: 12px;
+    }
+}
