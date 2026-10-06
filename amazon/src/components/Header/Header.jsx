@@ -1,10 +1,11 @@
 import React from 'react';
-import { FaSearch, FaCartArrowDown, FaMapMarkerAlt } from "react-icons/fa";
+import { FaSearch, FaMapMarkerAlt, FaChevronDown } from "react-icons/fa";
+import { IoCartOutline } from "react-icons/io5";
 import './Header.css';
-import { FaChevronDown } from "react-icons/fa";
-
+import LowerHeader from '../LowerHeader/LowerHeader';
 function Header() {
   return (
+    <>
     <div className='header'>
       {/* 1. Logo */}
       <a href='/' className='header__logo'>
@@ -25,10 +26,12 @@ function Header() {
 
       {/* 3. Search Bar */}
       <div className='header__search'>
-        <select className='header__searchSelect'>
-          <option value="ALL">All</option>
-            <FaChevronDown />
-        </select>
+        <div className='header__selectWrapper'>
+          <select className='header__searchSelect'>
+            <option value="ALL">All</option>
+          </select>
+          <FaChevronDown className='header__selectIcon' />
+        </div>
         <input type="text" placeholder='Search products' className='header__searchInput' />
         <button className='header__searchIconBtn'>
           <FaSearch />
@@ -44,10 +47,8 @@ function Header() {
             alt='US Flag' 
             className='header__flag'
           />
-          <span className='header__optionLineT'>
-            <option value="EN">EN</option>
-             <FaChevronDown />
-          </span>
+          <span className='header__optionLineTwo'>EN</span>
+          <FaChevronDown className='header__langIcon' />
         </div>
 
         {/* Sign In */}
@@ -64,11 +65,13 @@ function Header() {
 
         {/* Cart */}
         <a href="/cart" className='header__optionCart'>
-          <FaCartArrowDown size={24} />
+          <IoCartOutline size={24} />
           <span className='header__cartCount'>0</span>
         </a>
       </div>
     </div>
+       <LowerHeader />
+    </>
   );
 }
 

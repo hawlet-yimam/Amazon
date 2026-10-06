@@ -1,0 +1,89 @@
+.hero__container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.hero__container :global(.carousel) {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.hero__container :global(.carousel .slider-wrapper) {
+  width: 100%;
+  height: auto !important;
+  overflow: hidden;
+}
+
+.hero__container :global(.carousel .slider) {
+  width: 100%;
+  height: auto !important;
+  display: flex;
+  align-items: flex-start;
+}
+
+.hero__container :global(.carousel .slide) {
+  width: 100%;
+  min-width: 100%;
+  height: auto !important;
+  background: transparent;
+  margin: 0;
+  padding: 0;
+}
+
+.hero__slide {
+  position: relative;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+
+.hero__img,
+.hero__container :global(.carousel .slide img) {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100%;
+  max-height: none !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  margin: 0;
+  padding: 0;
+}
+
+.hero__fadeBottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 180px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(234, 237, 237, 0.15) 30%,
+    rgba(234, 237, 237, 0.7) 70%,
+    #eaeded 100%
+  );
+  z-index: 10;
+  pointer-events: none;
+}
+
+.hero__container :global(button.control-arrow) {
+  z-index: 20;
+}
+
+@media (max-width: 768px) {
+  .hero__fadeBottom {
+    height: 140px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero__fadeBottom {
+    height: 100px;
+  }
+}
