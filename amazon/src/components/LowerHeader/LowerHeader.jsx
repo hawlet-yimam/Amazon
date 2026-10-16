@@ -14,6 +14,12 @@ function LowerHeader() {
         <li>Registry</li>
         <li>Gift Cards</li>
         <li>Sell</li>
+        <li>
+          Coupons
+        </li>
+        <li>
+         Buy Again
+        </li>
       </ul>
     </div>
   );

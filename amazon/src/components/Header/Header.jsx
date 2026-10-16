@@ -3,21 +3,22 @@ import { FaSearch, FaMapMarkerAlt, FaChevronDown } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import './Header.css';
 import LowerHeader from '../LowerHeader/LowerHeader';
+import { Link } from 'react-router-dom';
 function Header() {
   return (
     <>
     <div className='header'>
       {/* 1. Logo */}
-      <a href='/' className='header__logo'>
+      <Link to='/' className='header__logo'>
         <img 
           src='https://pngimg.com/uploads/amazon/amazon_PNG25.png' 
           alt='Amazon Logo'
         />
-      </a>
+      </Link>
 
       {/* 2. Delivery Location */}
       <div className='header__delivery'>
-        <FaMapMarkerAlt className='header__locationIcon' />
+        <  FaMapMarkerAlt className='header__locationIcon' />
         <div className='header__deliveryText'>
           <span className='header__optionLineOne'>Deliver to</span>
           <span className='header__optionLineTwo'>Ethiopia</span>
@@ -52,22 +53,22 @@ function Header() {
         </div>
 
         {/* Sign In */}
-        <a href='/login' className='header__option'>
+        <Link to='/login' className='header__option'>
           <span className='header__optionLineOne'>Hello, Sign in</span>
           <span className='header__optionLineTwo'>Account & Lists</span>
-        </a>
+        </Link>
 
         {/* Returns & Orders */}
-        <a href='/orders' className='header__option'>
+        <Link to='/orders' className='header__option'>
           <span className='header__optionLineOne'>Returns</span>
           <span className='header__optionLineTwo'>& Orders</span>
-        </a>
+        </Link>
 
         {/* Cart */}
-        <a href="/cart" className='header__optionCart'>
+        <Link to="/cart" className='header__optionCart'>
           <IoCartOutline size={24} />
           <span className='header__cartCount'>0</span>
-        </a>
+        </Link>
       </div>
     </div>
        <LowerHeader />
