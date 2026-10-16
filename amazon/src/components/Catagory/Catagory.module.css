@@ -5,8 +5,6 @@
   display: flex;
   align-items: center;
 }
-
-/* Horizontal Scroll Container */
 .category__container {
   display: flex;
   gap: 16px;
@@ -15,19 +13,17 @@
   padding: 10px 20px;
   width: 100%;
   box-sizing: border-box;
-  /* Scrollbar ለመደበቅ */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none; 
+  -ms-overflow-style: none;  
 }
 
 .category__container::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none; 
 }
 
-/* Individual Card */
 .category__card {
-  flex: 0 0 calc(25% - 12px); /* በአንድ ገጽ ላይ 4 ካርዶች በትክክል እንዲታዩ */
-  min-width: 280px; /* በትንሽ ስክሪን ላይ ካርዱ እንዳይጨመቅ */
+  flex: 0 0 calc(25% - 12px);
+  min-width: 280px;
   height: 480px;
   border-radius: 20px;
   display: flex;
@@ -38,8 +34,6 @@
   overflow: hidden;
   position: relative;
 }
-
-/* Card Title Section */
 .card__header {
   padding: 24px 20px 10px 20px;
 }
@@ -53,8 +47,6 @@
   letter-spacing: -0.5px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
-
-/* Image Container */
 .img__container {
   width: 100%;
   height: 320px;
@@ -68,8 +60,6 @@
   object-position: center;
   display: block;
 }
-
-/* Scroll Buttons Style (እነዚያ ነጭ ቀስቶች) */
 .scroll__btn {
   position: absolute;
   top: 50%;
@@ -106,8 +96,6 @@
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-
-/* Responsive adjust */
 @media (max-width: 1024px) {
   .category__card {
     flex: 0 0 calc(33.333% - 12px);

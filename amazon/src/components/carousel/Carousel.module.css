@@ -5,8 +5,6 @@
   box-sizing: border-box;
   overflow: hidden;
 }
-
-/* Layout: fixed first card + scrollable cards */
 .carouselLayout {
   display: flex;
   align-items: stretch;
@@ -31,8 +29,6 @@
   overflow: hidden;
   border-radius: 5px;
 }
-
-/* Horizontal scrolling applies only here */
 .carousel {
   display: flex;
   align-items: stretch;
@@ -50,8 +46,6 @@
 .carousel::-webkit-scrollbar {
   display: none;
 }
-
-/* Regular cards */
 .card {
   flex: 0 0 260px;
   min-width: 0;

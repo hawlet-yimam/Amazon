@@ -8,15 +8,12 @@ function Header() {
   return (
     <>
     <div className='header'>
-      {/* 1. Logo */}
       <Link to='/' className='header__logo'>
         <img 
           src='https://pngimg.com/uploads/amazon/amazon_PNG25.png' 
           alt='Amazon Logo'
         />
       </Link>
-
-      {/* 2. Delivery Location */}
       <div className='header__delivery'>
         <  FaMapMarkerAlt className='header__locationIcon' />
         <div className='header__deliveryText'>
@@ -24,8 +21,6 @@ function Header() {
           <span className='header__optionLineTwo'>Ethiopia</span>
         </div>
       </div>
-
-      {/* 3. Search Bar */}
       <div className='header__search'>
         <div className='header__selectWrapper'>
           <select className='header__searchSelect'>
@@ -38,10 +33,7 @@ function Header() {
           <FaSearch />
         </button>
       </div>
-
-      {/* 4. Right Navigation Items */}
       <div className='header__nav'>
-        {/* Flag & Language */}
         <div className='header__option header__language'>
           <img 
             src='https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg' 
@@ -51,20 +43,14 @@ function Header() {
           <span className='header__optionLineTwo'>EN</span>
           <FaChevronDown className='header__langIcon' />
         </div>
-
-        {/* Sign In */}
         <Link to='/login' className='header__option'>
           <span className='header__optionLineOne'>Hello, Sign in</span>
           <span className='header__optionLineTwo'>Account & Lists</span>
         </Link>
-
-        {/* Returns & Orders */}
         <Link to='/orders' className='header__option'>
           <span className='header__optionLineOne'>Returns</span>
           <span className='header__optionLineTwo'>& Orders</span>
         </Link>
-
-        {/* Cart */}
         <Link to="/cart" className='header__optionCart'>
           <IoCartOutline size={24} />
           <span className='header__cartCount'>0</span>
