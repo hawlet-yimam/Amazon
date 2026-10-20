@@ -39,6 +39,20 @@
   color: #b12704;
   margin-top: 10px;
 }
+.button {
+  width: 100%;
+  padding: 7px;
+  border: none;
+  border-radius: 18px;
+  background: #ffd814;
+  font-size: 12px;
+  cursor: pointer;
+  margin-top: auto;
+}
+
+.button:hover {
+  background: #f7ca00;
+}
 
 @media (max-width: 1200px) {
   .product__container {

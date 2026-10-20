@@ -1,27 +1,52 @@
-import React from 'react';
-import  Product  from "./ProductInfo";
-import classes from './Product.module.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import classes from "./Product.module.css";
+import CurrencyFormat from "../CurrencyFormat/CurrencyFormat";
 
-function ProductComponent() {
+function ProductComponent({ products = [] }) {
   return (
     <section className={classes.product__container}>
-      {Product.map((singleProduct, index) => (
-        <div 
-          key={singleProduct.id} 
-          className={classes.category__card}
-        >
-          <h2>{singleProduct.title}</h2>
-          
-          <a href={`/Product/${singleProduct.category}`}>
-            <img 
-              src={singleProduct.image} 
-              alt={singleProduct.title} 
-            />
-          </a>
-          <p className={classes.product__price}>${singleProduct.price}</p>
-          
-        </div>
-      ))}
+      {products.length === 0 ? (
+        <p>No products found in this category.</p>
+      ) : (
+        products.map((product) => (
+          <div key={product.id} className={classes.category__card}>
+            {/* 1. Title */}
+            <h3>{product.title}</h3>
+
+            {/* 2. Image Link */}
+            <Link to={`/ProductDetail/${product.id}`}>
+              <img
+                src={
+                  product.thumbnail ||
+                  product.images?.[0] ||
+                  "https://placehold.co/300x300?text=No+Image"
+                }
+                alt={product.title}
+              />
+            </Link>
+
+            {/* 3. Rating */}
+            <div className={classes.rating}>
+              <span>⭐ {product.rating}</span>
+            </div>
+
+            {/* 4. Price (በ CurrencyFormat ወይም በ $ ማሳያ) */}
+            <div className={classes.product__price}>
+              {/* CurrencyFormat component ካለዎት፡ */}
+              <CurrencyFormat amount={product.price} />
+              
+              {/* ወይም CurrencyFormat ባይሰራ በቀጥታ ለማሳየት፡ */}
+              {/* <p>${product.price}</p> */}
+            </div>
+
+            {/* 5. Add to Cart Button */}
+            <button className={classes.button}>
+              Add to Cart
+            </button>
+          </div>
+        ))
+      )}
     </section>
   );
 }
