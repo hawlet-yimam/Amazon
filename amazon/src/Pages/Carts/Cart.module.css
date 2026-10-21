@@ -1,0 +1,86 @@
+
+.cartPage {
+  background-color: #eaeded;
+  min-height: 80vh;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.cartContent {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 350px;
+  gap: 20px;
+  max-width: 1500px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.cartItems {
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 4px;
+  min-width: 0;
+}
+
+.subtotal {
+   background-color: #fff;
+  border: 1px solid #d5d9d9;
+  border-radius: 8px;
+  padding: 20px;
+  width: 320px;
+  box-sizing: border-box;
+
+  position: fixed;
+  top: 270px;
+  right: 25px;
+
+  z-index: 10;
+}
+
+.subtotal h3 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 0 20px;
+  color: #0f1111;
+}
+
+.totalPrice {
+  font-size: 22px;
+  font-weight: 700;
+  color: #b12704;
+  margin-bottom: 20px;
+}
+
+.giftOption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.checkoutButton {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  text-decoration: none;
+  background-color: #ffd814;
+  color: #0f1111;
+  padding: 12px;
+  border-radius: 22px;
+}
+
+.checkoutButton:hover {
+  background-color: #f7ca00;
+}
+
+@media (max-width: 800px) {
+  .cartContent {
+    grid-template-columns: 1fr;
+  }
+
+  .subtotal {
+    position: static;
+  }
+}
