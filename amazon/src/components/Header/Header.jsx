@@ -4,9 +4,12 @@ import { IoCartOutline } from "react-icons/io5";
 import './Header.css';
 import LowerHeader from '../LowerHeader/LowerHeader';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { DataContext } from '../DataProvider/DataProvider';
 function Header() {
+  const [{basket},dispach]= useContext(DataContext)
   return (
-    <>
+    <section className="fixed">
     <div className='header'>
       <Link to='/' className='header__logo'>
         <img 
@@ -53,12 +56,12 @@ function Header() {
         </Link>
         <Link to="/cart" className='header__optionCart'>
           <IoCartOutline size={24} />
-          <span className='header__cartCount'>0</span>
+          <span className='header__cartCount'>{basket.length}</span>
         </Link>
       </div>
     </div>
        <LowerHeader />
-    </>
+    </section>
   );
 }
 

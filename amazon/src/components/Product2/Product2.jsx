@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ProductCard2 from './ProductCard2';
 import classes from './Product2.module.css';
-
 function Product2() {
   const [product, setProduct] = useState([]);
 

@@ -1,9 +1,34 @@
-import React from "react";
+import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
 import classes from "./Product.module.css";
 import CurrencyFormat from "../CurrencyFormat/CurrencyFormat";
 
+// 1. DataContext እና Type-ን import ያድርጉ (መንገዱን እንደ ፋይልዎ አደረጃጀት ያስተካክሉት)
+import { DataContext } from '../DataProvider/DataProvider'; 
+import { Type } from '../../Utility/action.type'; 
+
 function ProductComponent({ products = [] }) {
+
+  // useContext ን በትክክል መጠቀም
+  const [state, dispatch] = useContext(DataContext);
+
+  // addToCart function product-ን እንደ parameter ይቀበላል
+  const addToCart = (product) => {
+    const { id, title, price, rating, description, thumbnail, images } = product;
+    
+    dispatch({
+      type: Type.ADD_TO_BASKET,
+      item: {
+        id,
+        title,
+        price,
+        rating,
+        description,
+        thumbnail: thumbnail || images?.[0]
+      }
+    });
+  };
+
   return (
     <section className={classes.product__container}>
       {products.length === 0 ? (
@@ -31,17 +56,14 @@ function ProductComponent({ products = [] }) {
               <span>⭐ {product.rating}</span>
             </div>
 
-            {/* 4. Price (በ CurrencyFormat ወይም በ $ ማሳያ) */}
+            {/* 4. Price */}
             <div className={classes.product__price}>
-              {/* CurrencyFormat component ካለዎት፡ */}
               <CurrencyFormat amount={product.price} />
-              
-              {/* ወይም CurrencyFormat ባይሰራ በቀጥታ ለማሳየት፡ */}
-              {/* <p>${product.price}</p> */}
             </div>
 
             {/* 5. Add to Cart Button */}
-            <button className={classes.button}>
+            {/* product-ን ወደ addToCart ይልካል */}
+            <button className={classes.button} onClick={() => addToCart(product)}>
               Add to Cart
             </button>
           </div>

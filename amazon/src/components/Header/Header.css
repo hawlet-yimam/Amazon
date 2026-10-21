@@ -3,15 +3,20 @@
     padding: 0;
     box-sizing: border-box;
 }
+.fixed{
+    position: sticky;
+    z-index: 100;
+    top:0;
+}
 
 .header {
     height: 60px;
     display: flex;
     align-items: center;
     background-color: #131921;
-    position: sticky;
+   
     top: 0;
-    z-index: 100;
+   
     color: white;
     padding: 0 10px;
     gap: 15px;
@@ -251,6 +256,9 @@
     background-color: #232f3e !important;
     color: white !important;
     width: 100%;
+     /* position: sticky;
+    z-index: 100; */
+
 }
 
 .lower_container ul {
@@ -272,7 +280,6 @@
     border-radius: 2px !important;
     white-space: nowrap !important;
 }
-
 .lower_container li:hover {
     border-color: white !important;
 }
