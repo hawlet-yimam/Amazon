@@ -33,7 +33,7 @@ function ProductDetail() {
       ) : (
         <div className={classes.detailCardContainer}>
           {product ? (
-            <ProductCard2 Product={product} flex={true} renderDesc={true}/>
+            <ProductCard2 renderaAdd={true} Product={product} flex={true} renderDesc={true}/>
           ) : (
             <div style={{ padding: "50px", textAlign: "center" }}>
               <h2>Product Not Found</h2>

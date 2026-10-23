@@ -5,7 +5,7 @@ import classes from './Product2.module.css';
 import { Link } from 'react-router-dom';
 import { DataContext } from '../DataProvider/DataProvider';
 import{Type} from '../../Utility/action.type'
-function ProductCard2({ Product, flex, renderDesc}) {
+function ProductCard2({ Product, flex, renderDesc,renderaAdd}) {
   if (!Product) {
     return <div>Loading...</div>;
   }
@@ -39,10 +39,12 @@ function ProductCard2({ Product, flex, renderDesc}) {
         <div className={classes.priceContainer}>
           <CurrencyFormat amount={price} />
         </div>
-        
-        <button className={classes.addToCartButton} onClick={addToCart}>
+        {
+          renderaAdd && <button className={classes.addToCartButton} onClick={addToCart}>
           Add to Cart
         </button>
+        }
+        
       </div>
     </div>
   );

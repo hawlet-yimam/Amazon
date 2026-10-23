@@ -26,9 +26,6 @@ function Result() {
 
         const data = await getProductsByCategory(categoryName);
 
-        console.log("Category:", categoryName);
-        console.log("API response:", data);
-
         setProducts(data.products || []);
       } catch (err) {
         console.error("Product fetch failed:", err);
@@ -52,7 +49,7 @@ function Result() {
           {error && <p style={{ color: "red" }}>{error}</p>}
 
           {!error && (
-            <ProductComponent products={products} />
+            <ProductComponent  renderAdd ={true} products={products} />
           )}
         </>
       )}

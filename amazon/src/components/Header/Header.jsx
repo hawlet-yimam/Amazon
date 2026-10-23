@@ -8,6 +8,9 @@ import { useContext } from 'react';
 import { DataContext } from '../DataProvider/DataProvider';
 function Header() {
   const [{basket},dispach]= useContext(DataContext)
+  const totalItem = basket?.reduce((amount,item)=>{
+    return item.amount + amount
+  },0)
   return (
     <section className="fixed">
     <div className='header'>
@@ -56,7 +59,7 @@ function Header() {
         </Link>
         <Link to="/cart" className='header__optionCart'>
           <IoCartOutline size={24} />
-          <span className='header__cartCount'>{basket.length}</span>
+          <span className='header__cartCount'>{totalItem}</span>
         </Link>
       </div>
     </div>

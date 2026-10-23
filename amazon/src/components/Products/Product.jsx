@@ -2,17 +2,12 @@ import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
 import classes from "./Product.module.css";
 import CurrencyFormat from "../CurrencyFormat/CurrencyFormat";
-
-// 1. DataContext እና Type-ን import ያድርጉ (መንገዱን እንደ ፋይልዎ አደረጃጀት ያስተካክሉት)
 import { DataContext } from '../DataProvider/DataProvider'; 
 import { Type } from '../../Utility/action.type'; 
 
 function ProductComponent({ products = [] }) {
-
-  // useContext ን በትክክል መጠቀም
   const [state, dispatch] = useContext(DataContext);
 
-  // addToCart function product-ን እንደ parameter ይቀበላል
   const addToCart = (product) => {
     const { id, title, price, rating, description, thumbnail, images } = product;
     
@@ -38,8 +33,6 @@ function ProductComponent({ products = [] }) {
           <div key={product.id} className={classes.category__card}>
             {/* 1. Title */}
             <h3>{product.title}</h3>
-
-            {/* 2. Image Link */}
             <Link to={`/ProductDetail/${product.id}`}>
               <img
                 src={
@@ -60,9 +53,6 @@ function ProductComponent({ products = [] }) {
             <div className={classes.product__price}>
               <CurrencyFormat amount={product.price} />
             </div>
-
-            {/* 5. Add to Cart Button */}
-            {/* product-ን ወደ addToCart ይልካል */}
             <button className={classes.button} onClick={() => addToCart(product)}>
               Add to Cart
             </button>

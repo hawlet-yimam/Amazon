@@ -17,7 +17,7 @@ function Product2() {
     
     <main className={classes.productsGrid}>
       {product.map((singleProduct) => (
-        <ProductCard2  Product={singleProduct} key={singleProduct.id}
+        <ProductCard2 renderaAdd ={true} Product={singleProduct} key={singleProduct.id}
         />
       ))}
     </main>

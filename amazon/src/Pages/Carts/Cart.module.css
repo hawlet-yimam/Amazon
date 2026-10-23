@@ -163,3 +163,73 @@ width: 120px !important;
     align-items: center;
   }
 }
+/* የዕቃው ዝርዝር እና የቁልፎች ማቀፊያ */
+.cartProductContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eaeded;
+}
+
+/* የ (+) እና (-) ቁልፎች እና የብዛት (amount) ማቀፊያ */
+.btnContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-left: 20px;
+}
+
+/* የ (+) እና (-) ቁልፎች ዲዛይን */
+.btnContainer button {
+  background-color: #f0f2f2;
+  border: 1px solid #d5d9d9;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #0f1111;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+/* ቁልፎቹ ላይ ሲያንዣብቡ (Hover) የሚኖረው ከለር */
+.btnContainer button:hover {
+  background-color: #F7CA00;
+}
+
+.btnContainer button:active {
+  background-color: #d5d9d9;
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+/* መሃል ላይ የሚታየው የዕቃው ብዛት (Amount) */
+.btnContainer span {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f1111;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* ስልክ ወይም ታብሌት (Responsive) ሲሆን */
+@media (max-width: 768px) {
+  .cartProductContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .btnContainer {
+    flex-direction: row;
+    align-items: center;
+    margin-left: 0;
+  }
+}

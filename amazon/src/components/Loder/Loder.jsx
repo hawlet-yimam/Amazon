@@ -14,4 +14,4 @@ function Loder() {
   )
 }
 
-export default Loder
+export default Loder;
