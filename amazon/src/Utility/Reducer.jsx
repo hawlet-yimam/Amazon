@@ -2,6 +2,7 @@ import { Type } from './action.type';
 
 export const initialState = {
   basket: [],
+  user:null
 };
 
 export const reducer = (state, action) => {
@@ -32,21 +33,18 @@ export const reducer = (state, action) => {
     }
 
     case Type.REMOVE_FROM_BASKET: {
-      // const ን ወደ case ቀይረነዋል
       const index = state.basket.findIndex((item) => item.id === action.id);
       let newBasket = [...state.basket];
 
       if (index >= 0) {
         if (newBasket[index].amount > 1) {
-          // ብዛቱ ከ 1 በላይ ከሆነ በ 1 መቀነስ
           newBasket[index] = {
             ...newBasket[index],
             amount: newBasket[index].amount - 1,
           };
         } else {
-          // ብዛቱ 1 ከሆነ ዕቃውን ከቅርጫቱ ሙሉ በሙሉ ማስወገድ
           newBasket.splice(index, 1);
-        }
+        }   
       }
 
       return {
@@ -54,6 +52,11 @@ export const reducer = (state, action) => {
         basket: newBasket,
       };
     }
+    case Type.SET_USER:
+      return{
+        ...state,
+        user:action.user
+      }
 
     default:
       return state;
