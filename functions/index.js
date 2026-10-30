@@ -14,9 +14,37 @@ const app = express();
 
 app.use(cors({ origin: true }));
 app.use(express.json());
+
 app.get("/", (req, res) => {
   res.status(200).json({
     Message: "success !"
   });
 });
+
+app.post("/payment/create", async (req, res) => {
+  const total = req.query.total;
+  
+  if (total > 0) {
+    try {
+      // 1. paymentIntents (በ s) መሆን አለበት
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: total,
+        currency: "usd",
+      });
+
+      console.log(paymentIntent);
+      res.status(201).json({
+        clientSecret: paymentIntent.client_secret,
+      });
+    } catch (error) {
+      console.error("Stripe Error:", error);
+      res.status(500).json({ error: error.message });
+    }
+  } else {
+    res.status(400).json({
+      Message: "Total must be greater than 0",
+    });
+  }
+});
+
 exports.api = onRequest(app);
