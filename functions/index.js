@@ -26,7 +26,6 @@ app.post("/payment/create", async (req, res) => {
   
   if (total > 0) {
     try {
-      // 1. paymentIntents (በ s) መሆን አለበት
       const paymentIntent = await stripe.paymentIntents.create({
         amount: total,
         currency: "usd",
