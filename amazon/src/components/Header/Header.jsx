@@ -6,8 +6,9 @@ import LowerHeader from '../LowerHeader/LowerHeader';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { DataContext } from '../DataProvider/DataProvider';
+import{auth} from '../../Utility/firebase'
 function Header() {
-  const [{basket},dispach]= useContext(DataContext)
+  const [{user, basket},dispach]= useContext(DataContext)
   const totalItem = basket?.reduce((amount,item)=>{
     return item.amount + amount
   },0)
@@ -49,9 +50,23 @@ function Header() {
           <span className='header__optionLineTwo'>EN</span>
           <FaChevronDown className='header__langIcon' />
         </div>
-        <Link to='/login' className='header__option'>
-          <span className='header__optionLineOne'>Hello, Sign in</span>
-          <span className='header__optionLineTwo'>Account & Lists</span>
+        <Link to={!user && "/login"} className='header__option'>
+          <div className='header__optionLineOne'>
+          {
+            user?(
+              <>
+               <p>Hello {user?.email?.split("@")[0]}</p>
+                 <p onClick={()=>auth.signOut()}>Sign Out</p>
+              </>
+            ):(
+              <>
+             <p>Hello, sign In</p>
+             <span className='header__optionLineTwo'>Account & Lists</span>
+              </>
+            )
+}
+           </div>
+          
         </Link>
         <Link to='/orders' className='header__option'>
           <span className='header__optionLineOne'>Returns</span>
