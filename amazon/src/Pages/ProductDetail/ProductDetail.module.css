@@ -1,0 +1,16 @@
+.detailCardContainer {
+  padding: 30px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-height: 70vh;
+  background-color: #eaeded;
+}
+.detailCardContainer > div {
+  width: 100%;
+  max-width: 200px; 
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
