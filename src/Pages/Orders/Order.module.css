@@ -1,0 +1,68 @@
+
+.orders {
+  min-height: 70vh;
+  background: #eaeded;
+  padding: 30px 5%;
+}
+
+.orders h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #111;
+}
+
+.empty {
+  background: white;
+  padding: 35px;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.empty h2 {
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.empty p {
+  color: #565959;
+  font-size: 15px;
+}
+
+.orderCard {
+  background: white;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.orderHeader {
+  background: #f0f2f2;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.orderHeader p {
+  font-size: 11px;
+  color: #565959;
+  margin-bottom: 5px;
+}
+
+.orderHeader strong {
+  font-size: 13px;
+  color: #111;
+}
+
+.orderBody {
+  padding: 20px;
+}
+
+.orderBody h3 {
+  font-size: 16px;
+  color: #067d62;
+}
