@@ -1,4 +1,3 @@
-
 import React, {
   useContext,
   useMemo,
@@ -34,11 +33,12 @@ const stripePromise = loadStripe(
 );
 
 // Backend API URL
+// const API_URL =
+//   import.meta.env.MODE === "production"
+//     ? "https://us-central1-clone-ce7ce.cloudfunctions.net/api"
+//     : "http://127.0.0.1:5001/clone-ce7ce/us-central1/api";
 const API_URL =
-  import.meta.env.MODE === "production"
-    ? "https://us-central1-clone-ce7ce.cloudfunctions.net/api"
-    : "http://127.0.0.1:5001/clone-ce7ce/us-central1/api";
-
+  import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 // Payment Route Component
 function PaymentRoute() {

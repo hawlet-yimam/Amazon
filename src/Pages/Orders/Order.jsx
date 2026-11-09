@@ -1,13 +1,19 @@
-import React, { useContext, useState, useEffect } from "react";
+
+import React, {
+  useContext,
+  useState,
+  useEffect
+} from "react";
+
 import LayOut from "../../components/LayOut/Layout";
 import classes from "./Order.module.css";
+
 import { DataContext } from "../../components/DataProvider/DataProvider";
 import { db } from "../../Utility/firebase";
 
 import {
   collection,
   query,
-  where,
   onSnapshot
 } from "firebase/firestore";
 
@@ -17,128 +23,202 @@ function Order() {
   const [{ user }] = useContext(DataContext);
 
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
+    // Check if user is logged in
     if (!user?.uid) {
       setOrders([]);
+      setLoading(false);
+      setError("Please login to view your orders.");
       return;
     }
 
-    const q = query(
-      collection(db, "orders"),
-      where("userId", "==", user.uid)
+    setLoading(true);
+    setError("");
+
+    // Read orders belonging to the logged-in user
+    const ordersRef = collection(
+      db,
+      "users",
+      user.uid,
+      "orders"
     );
 
+    const ordersQuery = query(ordersRef);
+
     const unsubscribe = onSnapshot(
-      q,
+      ordersQuery,
+
       (snapshot) => {
-        const uniqueOrders = new Map();
+        const orderList = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data()
+        }));
 
-        snapshot.docs.forEach((document) => {
-          const data = document.data();
-
-          if (!uniqueOrders.has(document.id)) {
-            uniqueOrders.set(document.id, {
-              id: document.id,
-              data
-            });
-          }
-        });
-
-        const orderList = Array.from(uniqueOrders.values());
-       console.log("Unique Orders:", orderList);
-console.log("Order Count:", orderList.length);
+        // Sort newest orders first
         orderList.sort((a, b) => {
-          const dateA = a.data.created?.seconds || 0;
-          const dateB = b.data.created?.seconds || 0;
+          const dateA =
+            a.created?.seconds ||
+            a.createdAt?.seconds ||
+            0;
+
+          const dateB =
+            b.created?.seconds ||
+            b.createdAt?.seconds ||
+            0;
+
           return dateB - dateA;
         });
 
+        console.log("Orders loaded:", orderList);
+        console.log("Order count:", orderList.length);
+
         setOrders(orderList);
+        setLoading(false);
         setError("");
       },
+
       (err) => {
-        console.error("Orders loading error:", err);
-        setError("Unable to load your orders.");
+        console.error(
+          "Orders loading error:",
+          err.code,
+          err.message
+        );
+
+        setError(
+          `${err.code || "Error"}: ${err.message || "Unable to load your orders."}`
+        );
+
+        setLoading(false);
       }
     );
 
     return () => unsubscribe();
+
   }, [user?.uid]);
 
   return (
     <LayOut>
       <div className={classes.orders}>
+
         <h1>Your Orders</h1>
 
-        {error && <p>{error}</p>}
+        {/* Loading */}
+        {loading && (
+          <div className={classes.empty}>
+            <p>Loading your orders...</p>
+          </div>
+        )}
 
-        {orders.length === 0 && !error ? (
+        {/* Error */}
+        {!loading && error && (
+          <div className={classes.empty}>
+            <h2>Unable to load your orders.</h2>
+            <p>{error}</p>
+          </div>
+        )}
+
+        {/* Empty Orders */}
+        {!loading && !error && orders.length === 0 && (
           <div className={classes.empty}>
             <h2>You don't have any orders yet.</h2>
+
             <p>
               Your orders will appear here after
               you complete a successful payment.
             </p>
           </div>
-        ) : (
-          orders.map((order) => {
-            const orderData = order.data;
-
-            const orderDate = orderData.created?.seconds
-              ? new Date(
-                  orderData.created.seconds * 1000
-                ).toLocaleString()
-              : "Just now";
-
-            return (
-              <div
-                key={order.id}
-                className={classes.orderCard}
-              >
-                <div className={classes.orderHeader}>
-                  <div>
-                    <p>ORDER PLACED</p>
-                    <strong>{orderDate}</strong>
-                  </div>
-
-                  <div>
-                    <p>TOTAL</p>
-                    <strong>
-                      ${Number(orderData.amount || 0).toFixed(2)}
-                    </strong>
-                  </div>
-
-                  <div>
-                    <p>ORDER ID</p>
-                    <strong>{order.id}</strong>
-                  </div>
-                </div>
-
-                <div className={classes.orderBody}>
-                  <p>
-                    Payment Status: {orderData.paymentStatus}
-                  </p>
-
-                  <p>
-                    Customer: {orderData.userEmail}
-                  </p>
-
-                  {orderData.basket?.map((item, index) => (
-                    <ProductCard
-                      key={`${item.id}-${index}`}
-                      Product={item}
-                      flex={true}
-                      renderDesc={false}
-                      renderaAdd={false}
-                    />
-                  ))}
-                </div>
-              </div>
-            );
-          })
         )}
+
+        {/* Display Orders */}
+        {!loading && !error && orders.length > 0 && (
+          <div className={classes.orderList}>
+
+            {orders.map((order) => {
+
+              const orderDate =
+                order.created?.seconds
+                  ? new Date(
+                      order.created.seconds * 1000
+                    ).toLocaleString()
+                  : order.createdAt?.seconds
+                  ? new Date(
+                      order.createdAt.seconds * 1000
+                    ).toLocaleString()
+                  : "Date unavailable";
+
+              return (
+                <div
+                  key={order.id}
+                  className={classes.orderCard}
+                >
+
+                  {/* Order Header */}
+                  <div className={classes.orderHeader}>
+
+                    <div>
+                      <p>ORDER PLACED</p>
+                      <strong>{orderDate}</strong>
+                    </div>
+
+                    <div>
+                      <p>TOTAL</p>
+                      <strong>
+                        $
+                        {Number(
+                          order.amount || order.total || 0
+                        ).toFixed(2)}
+                      </strong>
+                    </div>
+
+                    <div>
+                      <p>ORDER ID</p>
+                      <strong>{order.id}</strong>
+                    </div>
+
+                  </div>
+
+                  {/* Order Body */}
+                  <div className={classes.orderBody}>
+
+                    <p>
+                      <strong>Payment Status:</strong>{" "}
+                      {order.paymentStatus || "Pending"}
+                    </p>
+
+                    <p>
+                      <strong>Customer:</strong>{" "}
+                      {order.userEmail || user.email}
+                    </p>
+
+                    {/* Products */}
+                    {Array.isArray(order.basket) &&
+                      order.basket.map((item, index) => (
+                        <ProductCard
+                          key={`${item.id || "product"}-${index}`}
+                          Product={item}
+                          flex={true}
+                          renderDesc={false}
+                          renderaAdd={false}
+                        />
+                      ))}
+
+                    {(!Array.isArray(order.basket) ||
+                      order.basket.length === 0) && (
+                      <p>No product details found for this order.</p>
+                    )}
+
+                  </div>
+
+                </div>
+              );
+            })}
+
+          </div>
+        )}
+
       </div>
     </LayOut>
   );
