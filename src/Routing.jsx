@@ -1,7 +1,7 @@
+
 import React, {
   useContext,
-  useMemo,
-  useState
+  useMemo
 } from "react";
 
 import {
@@ -25,26 +25,30 @@ import Order from "./Pages/Orders/Order";
 import Cart from "./Pages/Carts/Cart";
 import Result from "./Pages/Results/Result";
 import ProductDetail from "./Pages/ProductDetail/ProductDetail";
+
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
 
-// Stripe configuration
+// =====================================
+// STRIPE CONFIGURATION
+// =====================================
+
 const stripePromise = loadStripe(
   import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
 );
 
-// Backend API URL
-// const API_URL =
-//   import.meta.env.MODE === "production"
-//     ? "https://us-central1-clone-ce7ce.cloudfunctions.net/api"
-//     : "http://127.0.0.1:5001/clone-ce7ce/us-central1/api";
-const API_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:5000";
+// =====================================
+// BACKEND API URL
+// =====================================
 
-// Payment Route Component
+const API_URL = import.meta.env.VITE_API_URL?.replace(/\/+$/, "");
+
+// =====================================
+// PAYMENT ROUTE COMPONENT
+// =====================================
+
 function PaymentRoute() {
-  const [{ user, basket = [] }] = useContext(DataContext);
 
-  const [checkoutError, setCheckoutError] = useState("");
+  const [{ user, basket = [] }] = useContext(DataContext);
 
   // Calculate basket total
   const total = basket.reduce(
@@ -55,18 +59,27 @@ function PaymentRoute() {
     0
   );
 
-  // Create stable basket signature
+  // =====================================
+  // BASKET SIGNATURE
+  // =====================================
+
   const basketSignature = useMemo(() => {
+
     return basket
       .map((item) => {
         return `${item.id}:${item.amount || 1}:${item.price}`;
       })
       .sort()
       .join("|");
+
   }, [basket]);
 
-  // Create or reuse checkout key
+  // =====================================
+  // CHECKOUT KEY
+  // =====================================
+
   const checkoutKey = useMemo(() => {
+
     if (!user?.uid || !basketSignature) {
       return "";
     }
@@ -77,6 +90,7 @@ function PaymentRoute() {
     let savedKey = sessionStorage.getItem(storageKey);
 
     if (!savedKey) {
+
       savedKey = crypto.randomUUID();
 
       sessionStorage.setItem(
@@ -86,10 +100,23 @@ function PaymentRoute() {
     }
 
     return savedKey;
+
   }, [user?.uid, basketSignature]);
 
-  // Create Stripe Checkout Session
+  // =====================================
+  // CREATE STRIPE CHECKOUT SESSION
+  // =====================================
+
   const clientSecretPromise = useMemo(() => {
+
+    if (!API_URL) {
+      return Promise.reject(
+        new Error(
+          "Backend API URL is missing. Please configure VITE_API_URL in Vercel."
+        )
+      );
+    }
+
     if (!user?.uid || !user?.email) {
       return Promise.reject(
         new Error("Please login before making a payment.")
@@ -125,6 +152,7 @@ function PaymentRoute() {
         })
       }
     ).then(async (response) => {
+
       const data = await response.json();
 
       if (!response.ok) {
@@ -141,7 +169,18 @@ function PaymentRoute() {
       }
 
       return data.clientSecret;
+
+    }).catch((error) => {
+
+      console.error(
+        "Checkout session error:",
+        error
+      );
+
+      throw error;
+
     });
+
   }, [
     user?.uid,
     user?.email,
@@ -150,8 +189,12 @@ function PaymentRoute() {
     checkoutKey
   ]);
 
-  // Stripe Elements options
+  // =====================================
+  // STRIPE ELEMENTS OPTIONS
+  // =====================================
+
   const options = useMemo(() => ({
+
     clientSecret: clientSecretPromise,
 
     elementsOptions: {
@@ -159,10 +202,15 @@ function PaymentRoute() {
         theme: "stripe"
       }
     }
+
   }), [clientSecretPromise]);
 
-  // Check login
+  // =====================================
+  // LOGIN CHECK
+  // =====================================
+
   if (!user?.uid || !user?.email) {
+
     return (
       <div>
         Please login before making a payment.
@@ -170,8 +218,12 @@ function PaymentRoute() {
     );
   }
 
-  // Check basket
+  // =====================================
+  // BASKET CHECK
+  // =====================================
+
   if (!basket.length || total <= 0) {
+
     return (
       <div>
         Your basket is empty.
@@ -179,6 +231,10 @@ function PaymentRoute() {
       </div>
     );
   }
+
+  // =====================================
+  // PAYMENT ELEMENT PROVIDER
+  // =====================================
 
   return (
     <CheckoutElementsProvider
@@ -190,26 +246,34 @@ function PaymentRoute() {
   );
 }
 
+// =====================================
+// MAIN ROUTING COMPONENT
+// =====================================
 
-// Main Routing Component
 function Routing() {
+
   return (
+
     <Router>
+
       <Routes>
 
         {/* Home page */}
+
         <Route
           path="/"
           element={<Landing />}
         />
 
         {/* Login page */}
+
         <Route
           path="/Login"
           element={<Authh />}
         />
 
         {/* Protected Payment page */}
+
         <Route
           path="/Payment"
           element={
@@ -222,7 +286,8 @@ function Routing() {
           }
         />
 
-        {/* Orders page */}
+        {/* Protected Orders page */}
+
         <Route
           path="/Orders"
           element={
@@ -236,24 +301,28 @@ function Routing() {
         />
 
         {/* Cart page */}
+
         <Route
           path="/Cart"
           element={<Cart />}
         />
 
         {/* Category page */}
+
         <Route
           path="/category/:categoryName"
           element={<Result />}
         />
 
         {/* Product details */}
+
         <Route
           path="/products/:productId"
           element={<ProductDetail />}
         />
 
       </Routes>
+
     </Router>
   );
 }
