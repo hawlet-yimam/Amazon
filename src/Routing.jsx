@@ -33,7 +33,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
 // =====================================
 
 const stripePromise = loadStripe(
-  import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
+  import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY 
 );
 
 // =====================================
